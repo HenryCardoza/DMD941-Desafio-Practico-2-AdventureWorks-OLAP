@@ -1,0 +1,18 @@
+SELECT
+    { [Measures].[Volumen_Total] } ON COLUMNS,
+    NON EMPTY
+    ORDER(
+        CROSSJOIN(
+            CROSSJOIN(
+                [Dim Date].[Calendar Year].[Calendar Year].ALLMEMBERS,
+                [Dim Date].[Calendar Quarter].[Calendar Quarter].ALLMEMBERS
+            ),
+            CROSSJOIN(
+                [Dim Product].[English Product Category Name].[English Product Category Name].ALLMEMBERS,
+                [Dim Product].[English Product Subcategory Name].[English Product Subcategory Name].ALLMEMBERS
+            )
+        ),
+        [Measures].[Volumen_Total],
+        BDESC
+    ) ON ROWS
+FROM [AdventureWorks Sales];

@@ -1,0 +1,26 @@
+/* Miembros calculados implementados en el cubo AdventureWorks Sales */
+
+/* Rentabilidad_Internet */
+CoalesceEmpty([Measures].[Sales Amount], 0)
+-
+CoalesceEmpty([Measures].[Total Product Cost], 0)
+
+/* Rentabilidad_Reseller */
+CoalesceEmpty([Measures].[Sales Amount - Fact Reseller Sales], 0)
+-
+CoalesceEmpty([Measures].[Total Product Cost - Fact Reseller Sales], 0)
+
+/* Rentabilidad_Total */
+CoalesceEmpty([Measures].[Rentabilidad_Internet], 0)
++
+CoalesceEmpty([Measures].[Rentabilidad_Reseller], 0)
+
+/* Ventas_Totales */
+CoalesceEmpty([Measures].[Sales Amount], 0)
++
+CoalesceEmpty([Measures].[Sales Amount - Fact Reseller Sales], 0)
+
+/* Volumen_Total */
+CoalesceEmpty([Measures].[Order Quantity], 0)
++
+CoalesceEmpty([Measures].[Order Quantity - Fact Reseller Sales], 0)

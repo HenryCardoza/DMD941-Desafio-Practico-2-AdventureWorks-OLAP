@@ -1,0 +1,18 @@
+SELECT
+{
+    [Measures].[Sales Amount],
+    [Measures].[Sales Amount - Fact Reseller Sales],
+    [Measures].[Rentabilidad_Internet],
+    [Measures].[Rentabilidad_Reseller],
+    [Measures].[Rentabilidad_Total]
+} ON COLUMNS,
+NON EMPTY
+ORDER(
+    CROSSJOIN(
+        [Dim Sales Territory].[Sales Territory Country].[Sales Territory Country].ALLMEMBERS,
+        [Dim Sales Territory].[Sales Territory Region].[Sales Territory Region].ALLMEMBERS
+    ),
+    [Measures].[Rentabilidad_Total],
+    BDESC
+) ON ROWS
+FROM [AdventureWorks Sales];

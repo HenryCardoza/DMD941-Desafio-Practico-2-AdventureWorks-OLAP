@@ -1,0 +1,26 @@
+WITH
+SET [Top10Productos] AS
+    TOPCOUNT(
+        [Dim Product].[English Product Name].[English Product Name].MEMBERS,
+        10,
+        [Measures].[Rentabilidad_Total]
+    )
+SET [DetalleConVentas] AS
+    FILTER(
+        CROSSJOIN(
+            [Top10Productos],
+            CROSSJOIN(
+                [Dim Date].[Calendar Year].[Calendar Year].MEMBERS,
+                [Dim Date].[Calendar Quarter].[Calendar Quarter].MEMBERS
+            )
+        ),
+        [Measures].[Volumen_Total] > 0
+    )
+SELECT
+{
+    [Measures].[Rentabilidad_Total],
+    [Measures].[Ventas_Totales],
+    [Measures].[Volumen_Total]
+} ON COLUMNS,
+[DetalleConVentas] ON ROWS
+FROM [AdventureWorks Sales];
